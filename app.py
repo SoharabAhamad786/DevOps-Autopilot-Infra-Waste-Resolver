@@ -7,7 +7,7 @@ if sys.platform.startswith("win") and hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
-from flask import Flask, request, jsonify, render_template, send_file
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from sqlalchemy import func
 from config import settings
@@ -39,7 +39,6 @@ def index():
     return render_template("index.html")
 
 @app.route("/api/metrics", methods=["GET"])
-@app.route("/demo/metrics_sample.json", methods=["GET"])
 def get_metrics_sample():
     """
     Returns the cluster metrics dataset used for live and 3D visualizer rendering.
@@ -259,29 +258,6 @@ def slack_chatops():
                    "• `/autopilot status` - View latest cluster optimization summary\n" \
                    "• `/autopilot explain <run_id>` - Natural language explanation of agent reasoning"
         return jsonify({"response_type": "ephemeral", "text": help_msg})
-
-@app.route("/report/pdf", methods=["GET"])
-def download_report_pdf():
-    """Download the official DevOps Autopilot Project Report PDF."""
-    pdf_path = os.path.join(os.path.dirname(__file__), "DevOps_Autopilot_Project_Report.pdf")
-    if not os.path.exists(pdf_path):
-        import generate_pdf
-        generate_pdf.generate_pdf()
-    return send_file(pdf_path, as_attachment=False, mimetype="application/pdf")
-
-@app.route("/report/ppt", methods=["GET"])
-def download_presentation_ppt():
-    """Download the official DevOps Autopilot Hackathon Presentation PPTX."""
-    ppt_path = os.path.join(os.path.dirname(__file__), "DevOps_Autopilot_Hackathon_Presentation.pptx")
-    if not os.path.exists(ppt_path):
-        import generate_custom_ppt
-        generate_custom_ppt.build_presentation()
-    return send_file(
-        ppt_path,
-        as_attachment=True,
-        download_name="DevOps_Autopilot_Hackathon_Presentation.pptx",
-        mimetype="application/vnd.openxmlformats-officedocument.presentationml.presentation"
-    )
 
 if __name__ == "__main__":
     port = settings.PORT

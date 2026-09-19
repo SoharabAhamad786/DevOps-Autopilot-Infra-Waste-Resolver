@@ -39,7 +39,7 @@ class Settings:
     SLACK_WEBHOOK_URL: str = os.getenv("SLACK_WEBHOOK_URL", "")
     SLACK_SIGNING_SECRET: str = os.getenv("SLACK_SIGNING_SECRET", "mock-signing-secret")
     USE_MOCK_METRICS: bool = os.getenv("USE_MOCK_METRICS", "true").lower() in ("true", "1", "yes")
-    MOCK_METRICS_PATH: str = os.getenv("MOCK_METRICS_PATH", "demo/metrics_sample.json")
+    MOCK_METRICS_PATH: str = os.getenv("MOCK_METRICS_PATH", os.path.join(os.path.dirname(__file__), "integrations", "sample_metrics.json"))
     KUBECONFIG_PATH: str = os.getenv("KUBECONFIG_PATH", "")
     AWS_REGION: str = os.getenv("AWS_REGION", "ap-south-1")
 

@@ -1,5 +1,11 @@
+import os
+import sys
 import unittest
 import json
+
+# Ensure project root is in python path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app import app
 from db.session import get_db
 from db.models import OptimizationRun, Finding
@@ -72,15 +78,12 @@ class TestDevOpsAutopilot(unittest.TestCase):
         self.assertNotIn("Report (PDF)", html)
         self.assertNotIn("Pitch Deck (PPT)", html)
 
-    def test_09_download_pdf(self):
-        res = self.client.get("/report/pdf")
+    def test_09_api_metrics(self):
+        res = self.client.get("/api/metrics")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.content_type, "application/pdf")
-
-    def test_10_download_ppt(self):
-        res = self.client.get("/report/ppt")
-        self.assertEqual(res.status_code, 200)
-        self.assertIn("presentationml", res.content_type)
+        data = res.get_json()
+        self.assertIsInstance(data, list)
+        self.assertGreater(len(data), 0)
 
 if __name__ == "__main__":
     unittest.main()

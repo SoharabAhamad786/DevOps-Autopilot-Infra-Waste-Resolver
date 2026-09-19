@@ -634,7 +634,7 @@ document.addEventListener("DOMContentLoaded", () => {
         async loadWorkloadNodes() {
             let data = [];
             try {
-                const res = await fetch("/demo/metrics_sample.json");
+                const res = await fetch("/api/metrics");
                 if (res.ok) data = await res.json();
             } catch (e) {
                 console.error("3D loader error:", e);
