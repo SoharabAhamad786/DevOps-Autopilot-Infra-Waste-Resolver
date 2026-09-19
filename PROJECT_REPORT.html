@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DevOps Autopilot – Infra Waste Resolver | Project Report</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 15mm 18mm 15mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    line-height: 1.55;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #0f172a;
+    font-weight: 700;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+    page-break-after: avoid;
+    letter-spacing: -0.015em;
+  }
+
+  h1 {
+    font-size: 20pt;
+    line-height: 1.25;
+    border-bottom: 2.5px solid #2563eb;
+    padding-bottom: 8px;
+    margin-top: 0;
+    color: #1e3a8a;
+  }
+
+  h2 {
+    font-size: 14pt;
+    border-bottom: 1.5px solid #e2e8f0;
+    padding-bottom: 6px;
+    margin-top: 1.8em;
+    color: #1d4ed8;
+  }
+
+  h3 {
+    font-size: 11.5pt;
+    color: #334155;
+    margin-top: 1.4em;
+  }
+
+  h4 {
+    font-size: 10.5pt;
+    color: #475569;
+  }
+
+  p, ul, ol {
+    margin-top: 0.5em;
+    margin-bottom: 0.8em;
+  }
+
+  li {
+    margin-bottom: 0.3em;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #cbd5e1;
+    margin: 20px 0;
+  }
+
+  /* Code & Syntax */
+  pre {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid #3b82f6;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+    font-size: 8pt;
+    line-height: 1.45;
+    color: #0f172a;
+    white-space: pre;
+    overflow-x: auto;
+    page-break-inside: avoid;
+    margin: 10px 0 14px 0;
+  }
+
+  code {
+    font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+    font-size: 8.5pt;
+    background-color: #f1f5f9;
+    color: #0f172a;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre code {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    font-size: 8pt;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 18px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 6px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    border-left: 4px solid #3b82f6;
+    background-color: #eff6ff;
+    margin: 12px 0;
+    padding: 8px 14px;
+    color: #1e40af;
+    font-size: 9pt;
+    border-radius: 0 4px 4px 0;
+    page-break-inside: avoid;
+  }
+
+  /* Badges & Meta */
+  .doc-header {
+    background: linear-gradient(135deg, #1e3a8a, #0284c7);
+    color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+
+  .doc-header h1 {
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    margin: 0 0 10px 0;
+    font-size: 22pt;
+  }
+
+  .doc-header p {
+    margin: 4px 0;
+    font-size: 10pt;
+    opacity: 0.95;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: #dbeafe;
+    color: #1d4ed8;
+    margin-right: 6px;
+  }
+</style>
+</head>
+<body>
+<h1>DevOps Autopilot – Infra Waste Resolver (Agentic AI Track)</h1>
+<h2>Official Hackathon Submission Report &amp; Technical Whitepaper</h2>
+<hr />
+<h3>Document Metadata</h3>
+<ul>
+<li><strong>Project Title:</strong> DevOps Autopilot – Infra Waste Resolver</li>
+<li><strong>Track:</strong> Agentic AI Track (Autonomous Systems, FinOps &amp; SRE Acceleration)</li>
+<li><strong>Target Environments:</strong> Kubernetes (EKS/GKE/Kind/Self-Hosted) &amp; AWS Cloud (EC2)</li>
+<li><strong>Core Architecture:</strong> Multi-Agent Cooperative Architecture (Observer, Optimizer, Safety, Executor, Reporter)</li>
+<li><strong>Tech Stack:</strong> Python 3.10+, Flask, SQLAlchemy, SQLite, Three.js WebGL, Slack Block Kit API, OpenAI Tool Calling</li>
+<li><strong>Status:</strong> Functional Prototype, Fully Tested with Simulated &amp; Live Integration Modes</li>
+</ul>
+<hr />
+<h2>1. Executive Summary</h2>
+<p>Modern enterprise infrastructure faces a silent, compounding crisis: cloud waste. In containerized microservice architectures governed by Kubernetes and infrastructure-as-a-service (IaaS) providers like AWS, engineering teams routinely over-provision resources—allocating excessive CPU, memory, and instances to preempt performance degradation and avoid SLA penalties. Industry audits indicate that between 30% and 45% of allocated cloud capacity sits completely idle, costing engineering organizations millions of rupees annually without providing any reliability benefits. Existing FinOps tools compound the problem: they dump static dashboards and generic recommendations onto overworked Site Reliability Engineers (SREs), leading to alert fatigue and zero remediation action.</p>
+<p><strong>DevOps Autopilot – Infra Waste Resolver</strong> bridges the critical gap between passive cost observation and active, risk-governed remediation. Built for the Agentic AI Track, DevOps Autopilot is an autonomous, multi-agent artificial intelligence platform that acts as an indefatigable FinOps and SRE copilot. Rather than generating static charts, the system deploys five specialized agents—<strong>Observer</strong>, <strong>Optimizer</strong>, <strong>Safety</strong>, <strong>Executor</strong>, and <strong>Reporter</strong>—that continuously inspect telemetry, synthesize workload patterns, run pre-execution "What-If" capacity simulations, enforce strict organizational safety guardrails, and execute remediation actions in either dry-run or live mode with complete human-in-the-loop (HITL) oversight.</p>
+<pre><code>+------------------------------------------------------------------------------------+
+|                               EXECUTIVE IMPACT SNAPSHOT                            |
++------------------------------------------------------------------------------------+
+|  Pre-Optimization Waste:      32.8% Cluster Capacity (Avg Idle/Overprovisioned)    |
+|  Post-Optimization Waste:     14.2% Residual Allocation (Within Healthy Buffer)    |
+|  Direct Monthly Savings:      ₹18,450.00 / month (Validated Demo Cluster)          |
+|  Human Action Ratio:          70% Auto-Approved (Zero Risk) / 30% Human Approvals  |
+|  Critical Incidents Induced:  0 (Guaranteed via Change Windows &amp; Blast Radius Caps)|
++------------------------------------------------------------------------------------+
+</code></pre>
+<p>The system pairs autonomous decision-making with an intuitive, multi-modal control surface consisting of a cybernetic 3D cluster visualizer (WebGL/Three.js), a granular Waste Map, natural-language agent reasoning traces, and interactive Slack ChatOps (<code>/autopilot</code>). By enforcing rigorous safety constraints—such as namespace whitelisting, minimum replica counts, change-window locks, and 50% single-run reduction ceilings—DevOps Autopilot transforms cloud waste resolution from a risky manual chore into a trusted, automated background utility.</p>
+<hr />
+<h2>2. Problem Statement &amp; Motivation</h2>
+<h3>2.1 The Crisis of Cloud &amp; Kubernetes Resource Waste</h3>
+<p>Containerization and declarative orchestration have democratized deployment agility, but they have also decentralized cost management. In typical enterprise Kubernetes clusters, the following inefficiencies dominate:
+1. <strong>"Set-and-Forget" Overprovisioning:</strong> Developers set pod resource requests (<code>resources.requests.cpu</code> and <code>resources.requests.memory</code>) based on theoretical peak loads or unverified assumptions. In practice, services rarely sustain higher than 5–15% CPU utilization.
+2. <strong>Abandoned Ephemeral Environments:</strong> Staging namespaces, preview environments created for feature branches, and test deployments frequently remain active weeks after pull requests are merged.
+3. <strong>Zombie Worker Instances:</strong> Non-production EC2 worker nodes and legacy batch-processing compute instances continue running 24/7 despite processing zero queue items or ingress traffic.
+4. <strong>Replication Bloat:</strong> Stateless microservices running 5 to 10 replicas in pre-production or staging environments that handle less than 2 requests per minute.</p>
+<h3>2.2 The Business and Operational Impact</h3>
+<p>The consequences of unmanaged infrastructure waste manifest across three major dimensions:
+- <strong>Direct Financial Drain:</strong> Over-allocated vCPUs and RAM directly inflate monthly AWS/GCP bills. In large organizations, wasted cloud spend routinely exceeds hundreds of thousands of dollars (millions of INR) per quarter.
+- <strong>Environmental Carbon Footprint:</strong> Unused servers, underutilized compute racks, and redundant compute cycles consume electricity and cooling energy, directly contradicting corporate ESG (Environmental, Social, and Governance) sustainability targets.
+- <strong>Operational Noise and Alert Fatigue:</strong> SRE teams are inundated by static FinOps notifications and generic threshold alerts that offer no automated path to resolution.</p>
+<h3>2.3 Why Existing Solutions Fall Short</h3>
+<p>Traditional approaches to cloud cost optimization fall into two inadequate paradigms:
+- <strong>Static Dashboards (Datadog, Grafana, CloudWatch Cost Explorer):</strong> These systems provide retrospective visibility. They show where money <em>was</em> spent, but require humans to manually analyze trends, determine target replicas or instance types, draft configuration changes, and schedule rollout windows. Because SRE bandwidth is finite, recommendations languish indefinitely in backlogs.
+- <strong>Brittle Heuristic Scripts (Cron-based downscalers):</strong> Hardcoded bash or Python scripts that turn off pods on weekends lack contextual awareness. They do not simulate the blast radius of a scale-down, cannot detect whether an unexpected traffic spike is occurring, and lack natural-language explainability when an outage occurs.</p>
+<h3>2.4 The Imperative for an Agentic AI Architecture</h3>
+<p>Solving cloud waste safely requires continuous perception, contextual reasoning, forward simulation, and closed-loop execution. An agentic architecture provides four distinct capabilities that static tooling cannot replicate:
+1. <strong>Dynamic Context Synthesis:</strong> Multi-agent LLM systems can ingest multi-dimensional telemetry (CPU, RAM, network packet flow, error rates, namespace context, deployment metadata) and reason over whether a low-utilization service is truly idle or intentionally reserved for disaster recovery.
+2. <strong>Predictive What-If Simulation:</strong> Agents do not merely calculate past waste; they project the post-action steady state, computing estimated utilization increases and verifying that performance SLOs will not be breached.
+3. <strong>Adaptive Governance and Policy Enforcement:</strong> By separating the role of proposing optimizations from the role of safety auditing, an independent Safety Agent acts as an impartial gatekeeper, evaluating corporate policies before any execution occurs.
+4. <strong>Transparent Explainability and ChatOps Collaboration:</strong> Rather than silently executing black-box mutations, agentic AI explains its deductions in plain English, citing exact formulas and metrics directly in Slack and web consoles, fostering trust between AI operators and human engineers.</p>
+<hr />
+<h2>3. Objectives &amp; Success Metrics</h2>
+<h3>3.1 Primary Objectives</h3>
+<ul>
+<li><strong>High-Precision Waste Detection:</strong> Autonomously identify idle and overprovisioned Kubernetes workloads and AWS compute instances with zero false positives on production-critical services.</li>
+<li><strong>Explainable &amp; Safe Remediation Proposals:</strong> Formulate actionable right-sizing and scale-down plans accompanied by transparent, audit-ready natural-language justifications and deterministic cost equations.</li>
+<li><strong>Predictive Risk Modeling:</strong> Simulate the operational impact of proposed scale-downs before execution, calculating post-change utilization and assigning explicit risk scores (<code>LOW</code>, <code>MEDIUM</code>, <code>HIGH</code>).</li>
+<li><strong>Closed-Loop, Risk-Governed Execution:</strong> Implement automated remediation with graduated autonomy—auto-executing zero-risk changes in permitted environments while enforcing interactive human approval for sensitive or high-impact actions.</li>
+<li><strong>Comprehensive Auditability &amp; Visibility:</strong> Provide real-time FinOps transparency via a reactive Web UI (featuring 3D spatial cluster topologies and Waste Heatmaps) and a bidirectional Slack ChatOps interface.</li>
+</ul>
+<h3>3.2 Quantified Success Metrics &amp; Key Performance Indicators (KPIs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Metric Category</th>
+<th style="text-align: left;">Target Indicator</th>
+<th style="text-align: left;">Baseline (Pre-Autopilot)</th>
+<th style="text-align: left;">Target / Achieved (Demo)</th>
+<th style="text-align: left;">Verification Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Cluster Waste %</strong></td>
+<td style="text-align: left;">Proportion of allocated cores/RAM unused</td>
+<td style="text-align: left;">32.8% Average Waste</td>
+<td style="text-align: left;"><strong>14.2% Residual Waste</strong></td>
+<td style="text-align: left;">Cluster Telemetry Aggregation</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Financial Impact</strong></td>
+<td style="text-align: left;">Monthly run-rate savings (INR)</td>
+<td style="text-align: left;">₹0.00 saved</td>
+<td style="text-align: left;"><strong>₹18,450.00 / month</strong></td>
+<td style="text-align: left;">SQLAlchemy FinOps Billing Ledger</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Operational Safety</strong></td>
+<td style="text-align: left;">Production SLO Breaches / Downtime</td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;"><strong>0 Critical Incidents</strong></td>
+<td style="text-align: left;">Prometheus SLO / Ingress Error Logs</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Remediation Speed</strong></td>
+<td style="text-align: left;">Mean Time to Resolve (MTTR) Waste</td>
+<td style="text-align: left;">14–21 Days (Sprint Backlog)</td>
+<td style="text-align: left;"><strong>&lt; 45 Seconds (Autonomous)</strong></td>
+<td style="text-align: left;">Orchestrator Run Timestamps</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Autonomous Yield</strong></td>
+<td style="text-align: left;">% Actions safely auto-approved</td>
+<td style="text-align: left;">0%</td>
+<td style="text-align: left;"><strong>70% Auto-Approved</strong></td>
+<td style="text-align: left;">Finding Safety Decision Breakdown</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Audit Coverage</strong></td>
+<td style="text-align: left;">Tracking of approvals and diffs</td>
+<td style="text-align: left;">Fragmented / None</td>
+<td style="text-align: left;"><strong>100% Granular Audit Trail</strong></td>
+<td style="text-align: left;">Database Foreign Key Lineage</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. System Overview</h2>
+<h3>4.1 System Scope &amp; Multi-Environment Operation</h3>
+<p>DevOps Autopilot operates across multi-tiered cloud topologies including Development (<code>dev</code>), Quality Assurance (<code>qa</code>), Pre-Production/Staging (<code>staging</code>), and Production (<code>prod</code>).
+- In <strong>Non-Production Environments</strong> (<code>staging</code>, <code>dev</code>, <code>demo</code>), the system is granted elevated autonomous execution capabilities, enabling rapid reclamation of zombie resources and non-critical services.
+- In <strong>Production Environments</strong> (<code>prod</code>), the system automatically restricts its privileges to observation, what-if modeling, and drafting human-approval requests, enforcing mandatory change-window compliance and multi-party Slack sign-offs.</p>
+<h3>4.2 High-Level Architecture Diagram</h3>
+<pre><code>+---------------------------------------------------------------------------------------------------------+
+|                                    DEVOPS AUTOPILOT ARCHITECTURE                                        |
++---------------------------------------------------------------------------------------------------------+
+
+    +--------------------------------+                  +-----------------------------------+              
+    |     TARGET INFRASTRUCTURE      |                  |         MULTI-AGENT CORE          |              
+    |                                |                  |      (Python / Orchestrator)      |              
+    |  +--------------------------+  |                  |                                   |              
+    |  | Kubernetes Cluster       |  |  Raw Telemetry   |  +-----------------------------+  |              
+    |  | (Metrics API / Pods)     |==|=================&gt;|  |        OBSERVER AGENT       |  |              
+    |  +--------------------------+  |  (CPU/Mem/Net)   |  | (Normalize &amp; Compute Waste) |  |              
+    |                                |                  |  +--------------+--------------+  |              
+    |  +--------------------------+  |                  |                 |                 |              
+    |  | AWS Cloud Infrastructure |  |                  |                 v (ResourceMetrics)              
+    |  | (EC2 / CloudWatch)       |==|=================&gt;|  +-----------------------------+  |              
+    |  +--------------------------+  |                  |  |       OPTIMIZER AGENT       |  |              
+    +--------------------------------+                  |  |  (LLM Reasoner + Simulator) |  |              
+                   ^                                    |  +--------------+--------------+  |              
+                   | Mutate API                         |                 |                 |              
+                   | (Scale / Stop)                     |                 v (Proposed Actions)             
+                   |                                    |  +-----------------------------+  |              
+    +--------------+-----------------+                  |  |        SAFETY AGENT         |  |              
+    |         EXECUTOR AGENT         |                  |  | (Policy &amp; Window Gatekeeper)|  |              
+    | (Live Mode / Dry-Run / Rollback|                  |  +--------------+--------------+  |              
+    +--------------------------------+                  |                 |                 |              
+                   ^                                    |                 v (Validated Findings)           
+                   | Approved Actions                   |  +-----------------------------+  |              
+                   +---------------------------------------|        REPORTER AGENT       |  |              
+                                                        |  | (Slack BlockKit &amp; UI Sync)  |  |              
+                                                        |  +--------------+--------------+  |              
+                                                        +-----------------|-----------------+              
+                                                                          |                                
+                                      +-----------------------------------+--------------------+           
+                                      |                                                        |           
+                                      v                                                        v           
+                      +-------------------------------+                        +-------------------------------+
+                      |      PERSISTENCE LAYER        |                        |      PRESENTATION INTERFACES  |
+                      |  (SQLite / SQLAlchemy Engine) |                        |                               |
+                      |  - Resources                  |                        |  - Modern Web Console         |
+                      |  - OptimizationRuns           |                        |    * 3D WebGL Cluster Map     |
+                      |  - Findings &amp; Audit Logs      |                        |    * Waste Heatmaps           |
+                      +-------------------------------+                        |    * Agent Reasoning Panels   |
+                                      ^                                        |  - Interactive Slack ChatOps  |
+                                      |                                        |    * BlockKit Summaries       |
+                                      +========================================|    * Actionable Buttons       |
+                                                Flask REST API Gateway         +-------------------------------+
+</code></pre>
+<h3>4.3 End-to-End Data Flow Sequence</h3>
+<ol>
+<li><strong>Telemetry Acquisition:</strong> A run is initiated via Cron, Web UI, or Slack Slash Command (<code>/autopilot run</code>). The <strong>Observer Agent</strong> queries the Kubernetes Metrics API (or synthetic mock provider) and AWS EC2 API, normalizing raw usage into structured <code>ResourceMetric</code> records.</li>
+<li><strong>Waste Scoring &amp; Optimization:</strong> The Observer passes candidates with high waste scores to the <strong>Optimizer Agent</strong>. Using function calling against an LLM (or deterministic fallback reasoning), the Optimizer formulates precise actions (e.g., scale pod replicas from 5 down to 2, stop idle EC2 instance) and feeds them into the internal <strong>What-If Simulator</strong>.</li>
+<li><strong>Safety Verification:</strong> The <strong>Safety Agent</strong> intercepts the proposed findings, validating them against active organizational policies: namespace allowlists, active change windows, minimum replica boundaries, and single-run blast-radius ceilings. Findings are stamped as <code>auto_approve</code>, <code>require_approval</code>, or <code>reject</code>.</li>
+<li><strong>Execution / Dispatch:</strong> If operating in <code>live</code> mode, the <strong>Executor Agent</strong> applies all <code>auto_approve</code> actions directly against Kubernetes deployment APIs or AWS Boto3 endpoints. High-risk actions are queued pending human authorization.</li>
+<li><strong>Reporting &amp; Synchronization:</strong> The <strong>Reporter Agent</strong> persists the run state to SQLite, updates cluster waste analytics, dispatches an interactive Block Kit summary to Slack with real-time approval buttons, and broadcasts state updates to the Web UI.</li>
+</ol>
+<hr />
+<h2>5. Multi-Agent Architecture</h2>
+<p>DevOps Autopilot abandons monolithic decision trees in favor of a specialized multi-agent assembly where each agent possesses a bounded domain of responsibility, clear inputs, strictly typed outputs, and deterministic failure-handling paths.</p>
+<pre><code>+-------------------------------------------------------------------------------------------------------+
+|                                    MULTI-AGENT HANDOFF PIPELINE                                       |
++-------------------------------------------------------------------------------------------------------+
+ [ Observer ] =====(ResourceMetrics)=====&gt; [ Optimizer ] =====(ProposedActions)=====&gt; [ Safety Agent ]
+                                                                                            ||
+   [ Reporter ] &lt;====(RunSummary / Slack)==== [ Executor ] &lt;=====(ApprovedActions)=========++
+</code></pre>
+<h3>5.1 Observer Agent</h3>
+<h4>Responsibilities</h4>
+<p>The Observer Agent is the sensory organ of the system. It continuously polls infrastructure endpoints, isolates resources that meet ingestion quality standards, and normalizes heterogenous telemetry into a standardized internal representation.</p>
+<h4>Inputs and Outputs</h4>
+<ul>
+<li><strong>Inputs:</strong> Kubernetes Metrics Server (<code>/apis/metrics.k8s.io/v1beta1</code>), CoreV1 Pod/Deployment manifests, AWS CloudWatch / EC2 Boto3 SDK, or <code>demo/metrics_sample.json</code> (fallback/simulation mode).</li>
+<li><strong>Outputs:</strong> A typed collection of <code>ResourceMetric</code> objects containing normalized utilization percentages, allocation requests, and current cost baselines.</li>
+</ul>
+<pre><code class="language-python"># Internal Data Transfer Schema
+class ResourceMetric:
+    resource_id: str          # e.g., &quot;cart-service&quot; or &quot;i-09f1a2b3c4d5e6f7a&quot;
+    resource_type: str        # &quot;kubernetes_deployment&quot; | &quot;aws_ec2&quot;
+    namespace: str            # &quot;staging&quot; | &quot;dev&quot; | &quot;prod&quot;
+    current_cpu_request: float# Cores requested (e.g., 2.0)
+    current_mem_request: float# Memory requested in GB (e.g., 4.0)
+    avg_cpu_usage: float      # Actual average cores utilized (e.g., 0.04)
+    avg_mem_usage: float      # Actual average memory utilized in GB (e.g., 0.6)
+    cost_per_hour: float      # Hourly cost in INR
+    waste_score: float        # Normalized scalar (0.0 to 100.0)
+    current_replicas: int     # Kubernetes replica count (if applicable)
+</code></pre>
+<h4>Core Algorithms &amp; Waste Identification</h4>
+<p>The Observer Agent calculates utilization and computes a multi-dimensional waste score:
+$$\text{cpu_util} = \frac{\text{avg_cpu_usage}}{\text{current_cpu_request}}$$
+$$\text{mem_util} = \frac{\text{avg_mem_usage}}{\text{current_mem_request}}$$
+$$\text{waste_score} = \min\left(100.0, (1.0 - \text{cpu_util}) \times 60.0 + (1.0 - \text{mem_util}) \times 30.0 + \text{net_idle_penalty}\right)$$</p>
+<p>Workloads exhibiting a $\text{waste_score} \ge 50.0$ or a $\text{cpu_util} &lt; 0.30$ are tagged as optimization candidates and forwarded to the Optimizer Agent.</p>
+<h4>Failure Modes &amp; Resiliency Handling</h4>
+<ul>
+<li><strong>Metrics Server Latency / Stale Telemetry:</strong> If the K8s Metrics API fails to respond within 3000ms, the Observer triggers an exponential backoff retry. If metrics remain unavailable, the workload is marked <code>telemetry_unavailable</code> and excluded from the run to prevent uninformed scaling decisions.</li>
+<li><strong>Mock Mode Degradation:</strong> If cluster credentials are not detected or <code>--mock</code> is explicitly enabled, the Observer transparently loads realistic enterprise workload profiles from <code>metrics_sample.json</code>, guaranteeing deterministic demonstration readiness.</li>
+</ul>
+<hr />
+<h3>5.2 Optimizer Agent</h3>
+<h4>Responsibilities</h4>
+<p>The Optimizer Agent functions as the analytical intelligence engine. It evaluates candidates flagged by the Observer, formulates concrete remediation strategies, estimates financial savings, and subjects every proposed change to a rigorous <strong>What-If Capacity Simulator</strong>.</p>
+<h4>Decision Logic &amp; Action Formulation</h4>
+<p>The Optimizer applies heuristic guardrails combined with LLM function-calling capabilities:
+- <strong>Idle Pods ($\text{cpu_util} &lt; 0.05$ and $\text{mem_util} &lt; 0.15$):</strong> Proposes aggressive scaling down to minimal survival capacity (e.g., from 5 replicas down to 1 or 2).
+- <strong>Overprovisioned Workloads ($0.05 \le \text{cpu_util} &lt; 0.30$):</strong> Proposes proportionate replica reduction or CPU/Memory request rightsizing.
+- <strong>Zombie Compute Instances (EC2):</strong> Proposes immediate <code>stop_instance</code> actions if average CPU over 72 hours is below 2% and network packet count indicates zero production traffic.</p>
+<h4>The What-If Simulator &amp; Risk Derivation</h4>
+<p>Before any action is submitted to the Safety Agent, the Optimizer computes the theoretical state of the system post-execution:
+$$\text{predicted_util_pct} = \min\left(100.0, \text{current_cpu_util} \times \frac{\text{current_replicas}}{\text{target_replicas}}\right)$$</p>
+<pre><code>+----------------------------------------------------------------------------------+
+|                           WHAT-IF RISK SCORING MATRIX                            |
++----------------------+--------------------+--------------------------------------+
+| Predicted Util Range | Risk Category      | Remediation Implication              |
++----------------------+--------------------+--------------------------------------+
+| util &lt; 65%           | LOW                | Safe for autonomous execution        |
+| 65% &lt;= util &lt;= 80%   | MEDIUM             | Requires verification of traffic SLO |
+| util &gt; 80%           | HIGH               | Reject or mandate senior human signoff|
++----------------------+--------------------+--------------------------------------+
+</code></pre>
+<h4>End-to-End Optimizer Reasoning Example</h4>
+<pre><code class="language-json">{
+  &quot;resource_id&quot;: &quot;cart-service&quot;,
+  &quot;resource_type&quot;: &quot;kubernetes_deployment&quot;,
+  &quot;namespace&quot;: &quot;staging&quot;,
+  &quot;input_metrics&quot;: {
+    &quot;replicas&quot;: 5,
+    &quot;cpu_request&quot;: 2.0,
+    &quot;cpu_usage&quot;: 0.04,
+    &quot;utilization&quot;: &quot;2.0%&quot;
+  },
+  &quot;optimizer_analysis&quot;: &quot;Workload is severely underutilized (2% CPU across 5 pods). 4.8 CPU cores sit idle.&quot;,
+  &quot;proposed_action&quot;: {
+    &quot;action_type&quot;: &quot;scale_down&quot;,
+    &quot;target_replicas&quot;: 2,
+    &quot;reduction_percentage&quot;: &quot;60%&quot;
+  },
+  &quot;what_if_simulation&quot;: {
+    &quot;predicted_util_pct&quot;: 5.0,
+    &quot;headroom_remaining&quot;: &quot;95%&quot;,
+    &quot;risk_score&quot;: &quot;LOW&quot;,
+    &quot;risk_reason&quot;: &quot;Predicted utilization of 5.0% remains comfortably below the 65% SLO threshold.&quot;
+  },
+  &quot;financial_impact&quot;: {
+    &quot;monthly_savings_inr&quot;: 4800.0
+  }
+}
+</code></pre>
+<hr />
+<h3>5.3 Safety Agent</h3>
+<h4>Responsibilities</h4>
+<p>The Safety Agent acts as the system's supreme constitutional gatekeeper. It does not generate optimizations; its sole responsibility is to protect system availability by vetoing or restricting any action that violates organizational security or reliability policies.</p>
+<h4>Policy Governance Rules</h4>
+<ol>
+<li><strong>Namespace Boundary Enforcement:</strong> Workloads located outside the permitted allowlist (<code>staging</code>, <code>dev</code>, <code>demo</code>) cannot be automatically altered. Workloads in <code>prod</code> are automatically downgraded to <code>require_approval</code> or <code>reject</code>.</li>
+<li><strong>Temporal Change Windows:</strong> Production-affecting changes are strictly locked to authorized maintenance windows (e.g., 02:00 AM – 04:00 AM IST). Any action proposed outside this window is flagged with <code>require_approval</code>.</li>
+<li><strong>High-Availability (HA) Minimum Replicas:</strong> If a service receives external ingress or carries an active SLO, replicas cannot be reduced below 2.</li>
+<li><strong>Blast-Radius Ceilings:</strong> </li>
+<li>A single run cannot reduce replicas by more than 50% of the baseline count in a single iteration.</li>
+<li>The total number of mutating actions per execution run is strictly capped at <code>MAX_ACTIONS_PER_RUN = 10</code>.</li>
+</ol>
+<h4>Safety Decision Categories</h4>
+<ul>
+<li><strong><code>auto_approve</code>:</strong> Risk score is <code>LOW</code>, target namespace is in the allowlist, replica constraints are satisfied, and blast-radius thresholds are respected. Action proceeds directly to the Executor.</li>
+<li><strong><code>require_approval</code>:</strong> Risk score is <code>MEDIUM</code>, or the target namespace is sensitive (<code>prod</code>), or change window is inactive. Action is paused, and approval tokens are sent to Slack and the Web UI.</li>
+<li><strong><code>reject</code>:</strong> Risk score is <code>HIGH</code> (predicted utilization $&gt;80\%$), or action violates hard minimum replica limits. Execution is blocked permanently.</li>
+</ul>
+<hr />
+<h3>5.4 Executor Agent</h3>
+<h4>Responsibilities</h4>
+<p>The Executor Agent translates abstract optimization directives into concrete, idempotent infrastructure API calls.</p>
+<h4>Operational Modes &amp; Verification</h4>
+<ul>
+<li><strong>Dry-Run Mode (<code>mode = "dry_run"</code>):</strong> The default system setting. Simulates execution against Kubernetes and AWS APIs without dispatching mutating payloads. Validates API authentication, resource existence, and RBAC permissions.</li>
+<li><strong>Live Mode (<code>mode = "live"</code>):</strong> Connects to the Kubernetes <code>AppsV1Api</code> to patch deployment manifests (<code>scale_down</code>) or utilizes AWS Boto3 EC2 client (<code>stop_instances</code>).</li>
+</ul>
+<h4>Idempotency and Race-Condition Defense</h4>
+<p>Before executing a scale operation, the Executor re-queries the cluster to verify that the workload's live configuration matches the state observed at the start of the run. If another operator or autoscaler modified the deployment in the interim, the action is aborted to prevent configuration stomping.</p>
+<h4>Self-Healing &amp; Automated Rollback</h4>
+<p>Following a live mutation, the Executor Agent initiates a 60-second observation timer:
+- It verifies that the remaining pods successfully reach the <code>Ready</code> state.
+- If pod restart loops (<code>CrashLoopBackOff</code>) or ingress HTTP 5xx error spikes are detected, the Executor immediately issues a rollback patch, restoring the original replica count and alerting SREs in Slack with high priority.</p>
+<hr />
+<h3>5.5 Reporter Agent</h3>
+<h4>Responsibilities</h4>
+<p>The Reporter Agent synthesizes the collective findings of the pipeline, calculates aggregated financial metrics, updates the persistent audit database, and generates multi-channel notifications.</p>
+<h4>Multi-Channel Distribution</h4>
+<ol>
+<li><strong>Slack Block Kit Engine:</strong> Compiles rich, interactive Slack messages containing visual metric badges, financial tallies, before/after waste percentages, and interactive interactive approval buttons.</li>
+<li><strong>State &amp; UI Sync:</strong> Updates the SQLite repository, calculates cumulative organizational savings, and pushes refreshed data to the Web UI via REST endpoints.</li>
+</ol>
+<h4>Multi-Agent Interactions &amp; Error Propagation</h4>
+<p>The agents operate sequentially under the supervision of the <code>AgentOrchestrator</code>:</p>
+<pre><code>Observer ===&gt; Optimizer ===&gt; Safety ===&gt; Executor ===&gt; Reporter
+</code></pre>
+<p>If an agent encounters a critical exception (e.g., Kubernetes API network timeout or database lock contention), the pipeline does not fail silently. The error is captured, wrapped in an execution context, logged to the <code>OptimizationRun</code> record, and forwarded to the Reporter Agent to notify operators via Slack.</p>
+<hr />
+<h2>6. Data Model &amp; Storage</h2>
+<p>DevOps Autopilot utilizes an ACID-compliant relational schema implemented using <strong>SQLAlchemy ORM</strong> backed by <strong>SQLite</strong> (with zero-code migration path to PostgreSQL for enterprise production).</p>
+<pre><code>+------------------------------------------------------------------------------------+
+|                               ENTITY-RELATIONSHIP MODEL                            |
++------------------------------------------------------------------------------------+
+
+     +-----------------------+                    +-----------------------+
+     |       Resource        |                    |    OptimizationRun    |
+     +-----------------------+                    +-----------------------+
+     | PK  id (String)       |                    | PK  id (Integer)      |
+     |     resource_type     |                    |     triggered_at      |
+     |     resource_id       |                    |     mode              |
+     |     namespace_region  |                    |     findings_count    |
+     |     current_cpu_req   |                    |     actions_count     |
+     |     current_mem_req   |                    |     actions_approved  |
+     |     avg_cpu_usage     |                    |     actions_rejected  |
+     |     avg_mem_usage     |                    |     savings_inr_month |
+     |     cost_per_hour     |                    |     before_waste_pct  |
+     |     waste_score       |                    |     after_waste_pct   |
+     |     updated_at        |                    |     slack_posted      |
+     +-----------+-----------+                    |     summary_text      |
+                 |                                +-----------+-----------+
+                 | 1                                          | 1
+                 |                                            |
+                 | N                                          | N
+     +-----------v--------------------------------------------v-----------+
+     |                              Finding                               |
+     +--------------------------------------------------------------------+
+     | PK  id (Integer)                                                   |
+     | FK  run_id (Integer -&gt; OptimizationRun.id, Indexed)                |
+     | FK  resource_id (String -&gt; Resource.resource_id, Indexed)          |
+     |     resource_type (String)                                         |
+     |     issue_type (String)                                            |
+     |     utilization_pct (Float)                                        |
+     |     proposed_action (JSON / Text)                                  |
+     |     estimated_savings_inr_month (Float)                            |
+     |     predicted_util_pct (Float)                                     |
+     |     risk_score (String)                                            |
+     |     risk_reason (Text)                                             |
+     |     safety_decision (String)                                       |
+     |     safety_reason (Text)                                           |
+     |     executed (Boolean)                                             |
+     |     executed_at (DateTime)                                         |
+     |     approved_by (String)                                           |
+     +--------------------------------------------------------------------+
+</code></pre>
+<h3>6.1 <code>resources</code> Table</h3>
+<p>Represents the current known inventory of cluster workloads and compute instances, maintained as a hot cache for waste scoring.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Column Name</th>
+<th style="text-align: left;">Data Type</th>
+<th style="text-align: left;">Constraints</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;"><code>VARCHAR(100)</code></td>
+<td style="text-align: left;"><code>PRIMARY KEY</code></td>
+<td style="text-align: left;">Unique synthetic identifier (e.g., <code>k8s:staging:cart-service</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>resource_type</code></td>
+<td style="text-align: left;"><code>VARCHAR(50)</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Discriminator: <code>kubernetes_deployment</code> or <code>aws_ec2</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>resource_id</code></td>
+<td style="text-align: left;"><code>VARCHAR(100)</code></td>
+<td style="text-align: left;"><code>NOT NULL, INDEX</code></td>
+<td style="text-align: left;">Native cloud resource identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>namespace_region</code></td>
+<td style="text-align: left;"><code>VARCHAR(50)</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Kubernetes namespace or AWS region identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>current_cpu_request</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Allocated CPU cores (<code>resources.requests.cpu</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>current_mem_request</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Allocated RAM in Gigabytes (<code>resources.requests.memory</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>avg_cpu_usage</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Mean actual core usage over the evaluation window</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>avg_mem_usage</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Mean actual RAM consumption in Gigabytes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cost_per_hour</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Computed baseline hourly cost in INR</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>waste_score</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Normalized waste severity score ($0.0 \le s \le 100.0$)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>updated_at</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">UTC timestamp of the most recent telemetry poll</td>
+</tr>
+</tbody>
+</table>
+<h3>6.2 <code>optimization_runs</code> Table</h3>
+<p>Captures execution runs initiated by the system, tracking overarching cluster waste metrics, cumulative savings, and run metadata.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Column Name</th>
+<th style="text-align: left;">Data Type</th>
+<th style="text-align: left;">Constraints</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;"><code>INTEGER</code></td>
+<td style="text-align: left;"><code>PRIMARY KEY, AUTOINCREMENT</code></td>
+<td style="text-align: left;">Unique execution run identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>triggered_at</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">UTC timestamp of run initialization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mode</code></td>
+<td style="text-align: left;"><code>VARCHAR(20)</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Execution strategy: <code>dry_run</code> or <code>live</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>findings_count</code></td>
+<td style="text-align: left;"><code>INTEGER</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Total number of inefficient workloads identified</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>actions_count</code></td>
+<td style="text-align: left;"><code>INTEGER</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Total number of remediation actions proposed</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>actions_approved</code></td>
+<td style="text-align: left;"><code>INTEGER</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Count of actions approved (automatically or manually)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>actions_rejected</code></td>
+<td style="text-align: left;"><code>INTEGER</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Count of actions blocked by Safety Agent or human SRE</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>savings_inr_month</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Aggregate monthly financial savings in INR for this run</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>before_waste_pct</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Aggregate cluster waste percentage prior to run</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>after_waste_pct</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Projected or realized residual cluster waste percentage</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>slack_posted</code></td>
+<td style="text-align: left;"><code>BOOLEAN</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Boolean flag indicating whether Slack dispatch succeeded</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>summary_text</code></td>
+<td style="text-align: left;"><code>TEXT</code></td>
+<td style="text-align: left;"><code>NULLABLE</code></td>
+<td style="text-align: left;">Natural-language executive synthesis of run results</td>
+</tr>
+</tbody>
+</table>
+<h3>6.3 <code>findings</code> Table</h3>
+<p>The granular audit log of every individual resource optimization candidate, housing the complete reasoning chain from telemetry to execution.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Column Name</th>
+<th style="text-align: left;">Data Type</th>
+<th style="text-align: left;">Constraints</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;"><code>INTEGER</code></td>
+<td style="text-align: left;"><code>PRIMARY KEY, AUTOINCREMENT</code></td>
+<td style="text-align: left;">Unique finding identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>run_id</code></td>
+<td style="text-align: left;"><code>INTEGER</code></td>
+<td style="text-align: left;"><code>FOREIGN KEY, INDEX</code></td>
+<td style="text-align: left;">References <code>optimization_runs.id</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>resource_id</code></td>
+<td style="text-align: left;"><code>VARCHAR(100)</code></td>
+<td style="text-align: left;"><code>INDEX</code></td>
+<td style="text-align: left;">References target cloud resource identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>resource_type</code></td>
+<td style="text-align: left;"><code>VARCHAR(50)</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Type of infrastructure component</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>issue_type</code></td>
+<td style="text-align: left;"><code>VARCHAR(50)</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Problem categorization (<code>IDLE_POD</code>, <code>OVERSIZED_INSTANCE</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>utilization_pct</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Recorded utilization percentage at observation time</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>proposed_action</code></td>
+<td style="text-align: left;"><code>TEXT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">JSON-serialized remediation action payload</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>estimated_savings_inr_month</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Specific monthly savings yield in INR</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>predicted_util_pct</code></td>
+<td style="text-align: left;"><code>FLOAT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Simulated post-change utilization percentage</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>risk_score</code></td>
+<td style="text-align: left;"><code>VARCHAR(20)</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Output of What-If Simulator (<code>LOW</code>, <code>MEDIUM</code>, <code>HIGH</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>risk_reason</code></td>
+<td style="text-align: left;"><code>TEXT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Explainable justification for the assigned risk level</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>safety_decision</code></td>
+<td style="text-align: left;"><code>VARCHAR(20)</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Safety judgment: <code>auto_approve</code>, <code>require_approval</code>, <code>reject</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>safety_reason</code></td>
+<td style="text-align: left;"><code>TEXT</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Explicit policy rationale citing rules and windows</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>executed</code></td>
+<td style="text-align: left;"><code>BOOLEAN</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Truth value indicating if physical mutation occurred</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>executed_at</code></td>
+<td style="text-align: left;"><code>DATETIME</code></td>
+<td style="text-align: left;"><code>NULLABLE</code></td>
+<td style="text-align: left;">Timestamp of physical mutation execution</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>approved_by</code></td>
+<td style="text-align: left;"><code>VARCHAR(100)</code></td>
+<td style="text-align: left;"><code>NOT NULL</code></td>
+<td style="text-align: left;">Sign-off entity (<code>SYSTEM_AUTOPILOT</code> or Slack User ID)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. Metrics, Waste Scoring &amp; Savings Estimation</h2>
+<h3>7.1 Telemetry Evaluation Windows &amp; Utilization Formulation</h3>
+<p>DevOps Autopilot evaluates resource metrics over a rolling <strong>30-minute observation window</strong> to filter out transient initialization spikes and short-lived batch jobs.</p>
+<p>For any Kubernetes deployment $R$, utilization metrics are defined as:
+$$\text{Util}<em>{\text{CPU}}(R) = \frac{\text{Usage}</em>{\text{CPU, 30m}}(R)}{\text{Request}<em>{\text{CPU}}(R)}$$
+$$\text{Util}</em>{\text{Memory}}(R) = \frac{\text{Usage}<em>{\text{Memory, 30m}}(R)}{\text{Request}</em>{\text{Memory}}(R)}$$</p>
+<h3>7.2 Classification Heuristics</h3>
+<ul>
+<li><strong>Idle Workload:</strong>
+  $$\text{Util}<em>{\text{CPU}}(R) &lt; 0.05 \quad \text{AND} \quad \text{NetworkIO}</em>{\text{Bytes/sec}}(R) &lt; 1024$$
+  <em>Diagnostic:</em> Service is receiving virtually zero customer or internal RPC traffic.</li>
+<li><strong>Overprovisioned Workload:</strong>
+  $$\text{Util}<em>{\text{CPU}}(R) &lt; 0.30 \quad \text{AND} \quad \text{Request}</em>{\text{CPU}}(R) \ge 1.0 \text{ core}$$
+  <em>Diagnostic:</em> Service is handling functional workloads, but allocated resources are disproportionately excessive.</li>
+</ul>
+<h3>7.3 Waste Score Formulation</h3>
+<p>The composite Waste Score ($W_R$) normalizes multiple dimensions of underutilization into a single scalar value between $0.0$ and $100.0$:
+$$W_R = \min\left(100.0, (1.0 - \text{Util}<em>{\text{CPU}}) \times 60 + (1.0 - \text{Util}</em>{\text{Memory}}) \times 30 + P_{\text{network}}\right)$$
+Where $P_{\text{network}} = 10.0$ if average network throughput is below $1 \text{ KB/s}$, otherwise $0.0$.</p>
+<h4>Cluster-Level Waste Percentage</h4>
+<p>$$\text{Cluster Waste \%} = \frac{\sum_{R \in \text{Cluster}} \left( \text{Request}<em>{\text{CPU}}(R) - \text{Usage}</em>{\text{CPU}}(R) \right)}{\sum_{R \in \text{Cluster}} \text{Request}_{\text{CPU}}(R)} \times 100$$</p>
+<h3>7.4 Financial Pricing Engine &amp; Savings Calculation</h3>
+<h4>Configured Cloud Pricing Baselines (India Region / INR Benchmark)</h4>
+<ul>
+<li><strong>Kubernetes vCPU Baseline:</strong> $\text{Cost}_{\text{vCPU}} = ₹800.00 \text{ per core-month}$</li>
+<li><strong>Kubernetes RAM Baseline:</strong> $\text{Cost}_{\text{RAM}} = ₹250.00 \text{ per GB-month}$</li>
+<li><strong>AWS Compute Standard (e.g., <code>t3.xlarge</code>):</strong> $₹12.00 \text{ per instance-hour}$</li>
+</ul>
+<h4>Formulation Equations</h4>
+<ol>
+<li><strong>Kubernetes Scale-Down Action:</strong>
+   $$\text{Savings}<em>{\text{Monthly}} = (\text{Replicas}</em>{\text{Current}} - \text{Replicas}<em>{\text{Target}}) \times \left( \text{Request}</em>{\text{CPU}} \times ₹800 + \text{Request}_{\text{RAM}} \times ₹250 \right)$$</li>
+<li><strong>AWS EC2 Stop Action:</strong>
+   $$\text{Savings}<em>{\text{Monthly}} = \text{Cost}</em>{\text{Hourly}} \times 24 \text{ hours} \times 30 \text{ days} = \text{Cost}_{\text{Hourly}} \times 720$$</li>
+</ol>
+<h4>Worked Calculation Examples</h4>
+<pre><code>-------------------------------------------------------------------------------------
+CASE 1: Kubernetes Deployment (&quot;cart-service&quot; in staging)
+- Current Spec: 5 Replicas, Requests: 2.0 Cores, 4.0 GB RAM per Pod.
+- Observed Usage: 0.04 Cores, 0.6 GB RAM (Util: 2% CPU, 15% RAM).
+- Proposed Action: Scale down from 5 replicas to 2 replicas (Delta = 3 pods).
+- Cost per Pod-Month = (2.0 * 800) + (4.0 * 250) = 1,600 + 1,000 = ₹2,600 / pod-month
+- Total Monthly Savings = 3 pods * ₹2,600 = ₹7,800.00 / month
+-------------------------------------------------------------------------------------
+CASE 2: AWS EC2 Worker Node (&quot;i-09f1a2b3c4d5e6f7a&quot; in ap-south-1)
+- Instance Type: t3.xlarge (4 vCPUs, 16 GB RAM).
+- Baseline Pricing: ₹12.00 per hour.
+- Observed Usage: 0.8% CPU, 0 Network Packets over 72 hours (Zombie Instance).
+- Proposed Action: Stop instance.
+- Total Monthly Savings = ₹12.00 * 720 hours = ₹8,640.00 / month
+-------------------------------------------------------------------------------------
+</code></pre>
+<hr />
+<h2>8. Backend API Design</h2>
+<p>DevOps Autopilot exposes an API gateway constructed with Python and Flask, serving both the asynchronous UI and Slack Webhook dispatches.</p>
+<h3>8.1 API Specification Overview</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Endpoint Path</th>
+<th style="text-align: left;">Primary Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/api/optimize</code></td>
+<td style="text-align: left;">Triggers a full multi-agent optimization cycle</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/api/runs</code></td>
+<td style="text-align: left;">Retrieves historical run list with summary statistics</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/api/runs/&lt;run_id&gt;</code></td>
+<td style="text-align: left;">Retrieves granular findings and agent reasoning for a run</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/api/savings</code></td>
+<td style="text-align: left;">Returns cumulative enterprise financial metrics</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/api/waste-map</code></td>
+<td style="text-align: left;">Returns multi-dimensional cluster topology waste data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/api/approve</code></td>
+<td style="text-align: left;">Human-in-the-loop endpoint to execute queued actions</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/health</code></td>
+<td style="text-align: left;">Liveness and readiness health probe</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>8.2 Detailed Endpoint Reference &amp; Schemas</h3>
+<h4>1. <code>POST /api/optimize</code></h4>
+<p>Initiates an end-to-end multi-agent resolution cycle.</p>
+<ul>
+<li><strong>Request Headers:</strong> <code>Content-Type: application/json</code></li>
+<li><strong>Request Body Schema:</strong></li>
+</ul>
+<pre><code class="language-json">{
+  &quot;mode&quot;: &quot;dry_run&quot;, // &quot;dry_run&quot; | &quot;live&quot;
+  &quot;target_namespaces&quot;: [&quot;staging&quot;, &quot;dev&quot;], // Optional namespace filter
+  &quot;notify_slack&quot;: true // Boolean flag for Slack dispatch
+}
+</code></pre>
+<ul>
+<li><strong>Response Status:</strong> <code>200 OK</code></li>
+<li><strong>Response Body Schema:</strong></li>
+</ul>
+<pre><code class="language-json">{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;run_id&quot;: 42,
+  &quot;mode&quot;: &quot;dry_run&quot;,
+  &quot;summary&quot;: {
+    &quot;findings_count&quot;: 8,
+    &quot;actions_count&quot;: 8,
+    &quot;actions_approved&quot;: 6,
+    &quot;actions_rejected&quot;: 2,
+    &quot;savings_inr_month&quot;: 18450.0,
+    &quot;before_waste_pct&quot;: 32.8,
+    &quot;after_waste_pct&quot;: 14.2
+  },
+  &quot;triggered_at&quot;: &quot;2026-09-19T13:45:00Z&quot;
+}
+</code></pre>
+<h4>2. <code>GET /api/runs/&lt;run_id&gt;</code></h4>
+<p>Fetches granular audit data, What-If risk scores, and agent natural-language traces for a designated run.</p>
+<ul>
+<li><strong>Request Parameters:</strong> <code>run_id</code> (integer path parameter)</li>
+<li><strong>Response Status:</strong> <code>200 OK</code></li>
+<li><strong>Response Body Example:</strong></li>
+</ul>
+<pre><code class="language-json">{
+  &quot;run_id&quot;: 42,
+  &quot;mode&quot;: &quot;dry_run&quot;,
+  &quot;before_waste_pct&quot;: 32.8,
+  &quot;after_waste_pct&quot;: 14.2,
+  &quot;savings_inr_month&quot;: 18450.0,
+  &quot;findings&quot;: [
+    {
+      &quot;id&quot;: 108,
+      &quot;resource_id&quot;: &quot;cart-service&quot;,
+      &quot;resource_type&quot;: &quot;kubernetes_deployment&quot;,
+      &quot;issue_type&quot;: &quot;IDLE_POD&quot;,
+      &quot;utilization_pct&quot;: 2.0,
+      &quot;proposed_action&quot;: {
+        &quot;action&quot;: &quot;scale_down&quot;,
+        &quot;current_replicas&quot;: 5,
+        &quot;target_replicas&quot;: 2
+      },
+      &quot;estimated_savings_inr_month&quot;: 7800.0,
+      &quot;predicted_util_pct&quot;: 5.0,
+      &quot;risk_score&quot;: &quot;LOW&quot;,
+      &quot;risk_reason&quot;: &quot;Predicted utilization 5.0% is well within safe thresholds (&lt;65%).&quot;,
+      &quot;safety_decision&quot;: &quot;auto_approve&quot;,
+      &quot;safety_reason&quot;: &quot;Staging namespace is whitelisted. Scale-down within 50% single-run cap.&quot;,
+      &quot;executed&quot;: false,
+      &quot;approved_by&quot;: &quot;SYSTEM_AUTOPILOT&quot;
+    }
+  ]
+}
+</code></pre>
+<h4>3. <code>GET /api/waste-map</code></h4>
+<p>Feeds the spatial 3D cluster visualizer and heatmaps with topology metrics.</p>
+<ul>
+<li><strong>Response Status:</strong> <code>200 OK</code></li>
+<li><strong>Response Body Example:</strong></li>
+</ul>
+<pre><code class="language-json">{
+  &quot;cluster_waste_pct&quot;: 32.8,
+  &quot;namespaces&quot;: {
+    &quot;staging&quot;: {
+      &quot;resource_count&quot;: 6,
+      &quot;avg_waste_score&quot;: 78.4,
+      &quot;potential_savings_inr&quot;: 12800.0,
+      &quot;workloads&quot;: [
+        {&quot;name&quot;: &quot;cart-service&quot;, &quot;waste_score&quot;: 88.0, &quot;status&quot;: &quot;severe_waste&quot;},
+        {&quot;name&quot;: &quot;payment-mock&quot;, &quot;waste_score&quot;: 92.5, &quot;status&quot;: &quot;idle&quot;}
+      ]
+    },
+    &quot;prod&quot;: {
+      &quot;resource_count&quot;: 8,
+      &quot;avg_waste_score&quot;: 12.2,
+      &quot;potential_savings_inr&quot;: 0.0,
+      &quot;workloads&quot;: [
+        {&quot;name&quot;: &quot;order-processor&quot;, &quot;waste_score&quot;: 14.0, &quot;status&quot;: &quot;healthy&quot;}
+      ]
+    }
+  }
+}
+</code></pre>
+<h4>4. <code>POST /api/approve</code></h4>
+<p>Human-in-the-loop authorization to execute an action marked <code>require_approval</code>.</p>
+<ul>
+<li><strong>Request Body Schema:</strong></li>
+</ul>
+<pre><code class="language-json">{
+  &quot;finding_id&quot;: 109,
+  &quot;approver&quot;: &quot;sre-oncall-user-412&quot;
+}
+</code></pre>
+<ul>
+<li><strong>Response Status:</strong> <code>200 OK</code></li>
+<li><strong>Response Body Schema:</strong></li>
+</ul>
+<pre><code class="language-json">{
+  &quot;status&quot;: &quot;executed&quot;,
+  &quot;finding_id&quot;: 109,
+  &quot;resource_id&quot;: &quot;analytics-batch-worker&quot;,
+  &quot;executed_at&quot;: &quot;2026-09-19T13:48:12Z&quot;,
+  &quot;approved_by&quot;: &quot;sre-oncall-user-412&quot;
+}
+</code></pre>
+<hr />
+<h2>9. Slack ChatOps Integration</h2>
+<p>DevOps Autopilot treats Slack as a first-class operational control plane, allowing SREs to monitor, trigger, explain, and authorize actions from shared incident channels.</p>
+<pre><code>+------------------------------------------------------------------------------------+
+|                             SLACK CHATOPS RUN SUMMARY                              |
++------------------------------------------------------------------------------------+
+|  *DevOps Autopilot - Infra Waste Resolution Complete* [LIVE MODE]                  |
+|  *Cluster Waste:* `32.8%` -&gt; `14.2%`  |  *Monthly Savings:* `₹18,450.00 / month`   |
+|                                                                                    |
+|  *Execution Breakdown:*                                                            |
+|  - Findings Detected: `8`                                                          |
+|  - Actions Auto-Approved: `6` (Applied to K8s/AWS)                                 |
+|  - Actions Requiring Human Signoff: `2`                                            |
+|                                                                                    |
+|  *Pending Approval (1 of 2):*                                                      |
+|  `analytics-processor` in namespace `prod` (Scale 6 -&gt; 3 pods)                    |
+|  Predicted Util: `48%` | Risk: `MEDIUM` (Production Change Window Lock)           |
+|                                                                                    |
+|  [ APPROVE &amp; EXECUTE ]          [ REJECT &amp; DISCARD ]          [ VIEW AUDIT UI ]    |
++------------------------------------------------------------------------------------+
+</code></pre>
+<h3>9.1 Supported Slash Commands</h3>
+<ul>
+<li><code>/autopilot run &lt;scope&gt; &lt;mode&gt;</code>: Manually triggers an optimization run. Example: <code>/autopilot run staging live</code> or <code>/autopilot run all dry_run</code>.</li>
+<li><code>/autopilot status</code>: Returns current cluster-wide waste percentages, top wasting services, and pending approvals.</li>
+<li><code>/autopilot explain &lt;run_id&gt;</code>: Ingests the <code>run_id</code> and dispatches the natural-language deduction log compiled by the Optimizer Agent.</li>
+</ul>
+<h3>9.2 Human-in-the-Loop Signoff Flow</h3>
+<p>When the Safety Agent flags a finding with <code>require_approval</code>, the Reporter generates a Slack Block Kit message with interactive action buttons (<code>value="approve_&lt;finding_id&gt;"</code>).
+1. When an engineer clicks <strong>[ APPROVE &amp; EXECUTE ]</strong>, Slack dispatches an interactive payload to <code>/slack/commands</code>.
+2. The endpoint verifies the Slack HMAC signature (<code>X-Slack-Signature</code>) using <code>SLACK_SIGNING_SECRET</code>.
+3. The approver's Slack handle (e.g., <code>@alex.sre</code>) is extracted and passed to the Executor.
+4. The Executor performs the physical mutation, updates the <code>Finding</code> record (<code>approved_by="@alex.sre"</code>, <code>executed=True</code>), and replaces the Slack button with a confirmation badge: <code>Approved &amp; Executed by @alex.sre at 13:48 UTC</code>.</p>
+<hr />
+<h2>10. User Interface (UI)</h2>
+<p>The DevOps Autopilot Web Console provides a cohesive operational dashboard designed for FinOps practitioners and SREs.</p>
+<pre><code>+---------------------------------------------------------------------------------------------------------+
+|                                     DEVOPS AUTOPILOT CONSOLE                                            |
++---------------------------------------------------------------------------------------------------------+
+|  [ OVERVIEW ]       [ 3D CYBER CLUSTER ]       [ WASTE MAP ]       [ RUN AUDIT ]       [ SYSTEM STATUS ]|
++---------------------------------------------------------------------------------------------------------+
+|  TOTAL MONTHLY SAVINGS    |  CLUSTER WASTE REDUCTION  |  ACTIVE RUN MODE    |  ACTIONS EXECUTED         |
+|  ₹18,450.00 / mo          |  32.8%  ==&gt;  14.2%        |  LIVE (Auto-Safe)   |  6 Auto / 2 Manual        |
++---------------------------------------------------------------------------------------------------------+
+|  [ 3D TOPOLOGY CANVAS (WebGL / Three.js) ]           |  [ AGENT REASONING ENGINE TRACE ]                |
+|                                                      |                                                  |
+|       (.) staging:cart-service [SEVERE WASTE]        |  &gt; [Optimizer]: cart-service at 2% CPU.          |
+|      /   \                                           |  &gt; [What-If]: Simulating scale 5 -&gt; 2 replicas.  |
+|   (.)     (.) staging:payment-mock [IDLE]            |  &gt; [What-If]: Predicted util = 5.0%. Risk: LOW.  |
+|    |       |                                         |  &gt; [Safety]: Namespace staging approved.         |
+|   (.)     (.) prod:api-gateway [HEALTHY - GREEN]     |  &gt; [Safety]: Scale cap &lt;= 50% verified.          |
+|                                                      |  &gt; [Executor]: K8s AppsV1Api patch successful.   |
++---------------------------------------------------------------------------------------------------------+
+|  [ RUN DETAILS &amp; WHAT-IF SIMULATION TABLE ]                                                             |
+|  Resource ID    Namespace  Issue      Current   Predicted  Risk    Safety Decision   Status             |
+|  cart-service   staging    IDLE_POD   2.0%      5.0%       LOW     auto_approve      Executed (Scaled)  |
+|  analytics-wrk  staging    OVERSIZE   12.0%     24.0%      LOW     auto_approve      Executed (Scaled)  |
+|  payment-mock   staging    IDLE_POD   0.5%      1.0%       LOW     auto_approve      Executed (Scaled)  |
+|  i-09f1a2b3c4   ap-south   ZOMBIE_EC2 0.8%      N/A        LOW     auto_approve      Stopped (EC2)      |
+|  core-db-replica prod      OVERSIZE   28.0%     56.0%      MEDIUM  require_approval  Pending Slack Auth |
++---------------------------------------------------------------------------------------------------------+
+</code></pre>
+<h3>10.1 Key UI Modules</h3>
+<ol>
+<li><strong>Executive Overview:</strong> High-impact KPI tiles displaying total monthly INR savings, before/after waste delta, active run status, and trigger controls for <code>Dry-Run</code> and <code>Live</code> optimization runs.</li>
+<li><strong>3D Cyber Cluster Visualizer (WebGL / Three.js):</strong> An interactive 3D spatial graph rendering namespaces as revolving orbital planes and pods as glowing nodes. Nodes are color-coded based on waste score:</li>
+<li>🟢 <strong>Emerald Green:</strong> Healthy utilization ($&gt;40\%$).</li>
+<li>🟡 <strong>Amber Yellow:</strong> Moderately overprovisioned ($20\% - 40\%$).</li>
+<li>🔴 <strong>Neon Crimson:</strong> Severe waste / Zombie allocation ($&lt;10\%$).</li>
+<li><strong>Waste Heatmap:</strong> A hierarchical breakdown grouped by namespace and service name, enabling rapid identification of which engineering squads generate the largest share of idle infrastructure.</li>
+<li><strong>Agent Reasoning Panel:</strong> An interactive terminal feed displaying the step-by-step cognitive traces of the Observer, Optimizer, Safety, and Executor agents for every finding.</li>
+<li><strong>Audit Trail &amp; Governance Table:</strong> Searchable historical ledger displaying every past action, the exact timestamp, who approved it (<code>SYSTEM</code> vs human SRE), the pre-change vs post-change spec diff, and the realized savings.</li>
+</ol>
+<hr />
+<h2>11. Safety, Governance &amp; Risk Management</h2>
+<h3>11.1 Defense-in-Depth Safety Architecture</h3>
+<p>Because infrastructure mutation carries availability risks, DevOps Autopilot treats safety as a primary constraint rather than an afterthought.</p>
+<pre><code>                  +----------------------------------------------------+
+                  |               PROPOSED MUTATION ACTION             |
+                  +----------------------------------------------------+
+                                            |
+                                            v
+               [ POLICY 1: Namespace Allowlist Check (staging/dev)? ]
+                     /                                       \
+                   (NO)                                     (YES)
+                   /                                           \
+                  v                                             v
+        +-------------------+              [ POLICY 2: Active Change Window Check? ]
+        | require_approval  |                    /                           \
+        +-------------------+                  (NO)                         (YES)
+                                               /                               \
+                                              v                                 v
+                                    +-------------------+     [ POLICY 3: Blast Radius &lt;= 50%? ]
+                                    | require_approval  |           /                   \
+                                    +-------------------+         (NO)                 (YES)
+                                                                  /                       \
+                                                                 v                         v
+                                                       +-------------------+     [ POLICY 4: What-If Risk LOW? ]
+                                                       | require_approval  |           /               \
+                                                       +-------------------+         (NO)             (YES)
+                                                                                     /                   \
+                                                                                    v                     v
+                                                                          +-------------------+  +-------------------+
+                                                                          | require_approval  |  |   auto_approve    |
+                                                                          +-------------------+  +-------------------+
+</code></pre>
+<h3>11.2 Failure Mode and Effects Analysis (FMEA)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Potential Failure Mode</th>
+<th style="text-align: left;">Root Cause</th>
+<th style="text-align: left;">Impact Severity</th>
+<th style="text-align: left;">Mitigation Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Premature Scale-Down of Spiky Service</strong></td>
+<td style="text-align: left;">Burst traffic occurs immediately after scale down</td>
+<td style="text-align: left;">HIGH</td>
+<td style="text-align: left;">What-If Simulator enforces minimum 35% headroom. Autonomous rollback reverts pods if restart loops or 5xx spikes are detected within 60s.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Accidental Production Disruption</strong></td>
+<td style="text-align: left;">Faulty namespace tag or configuration error</td>
+<td style="text-align: left;">CRITICAL</td>
+<td style="text-align: left;">Hard-coded namespace allowlist default (<code>staging</code>, <code>dev</code>). Production actions always demand human multi-factor authorization via Slack.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Excessive Cluster-Wide Throttling</strong></td>
+<td style="text-align: left;">Multiple concurrent agents reducing pods simultaneously</td>
+<td style="text-align: left;">HIGH</td>
+<td style="text-align: left;"><code>MAX_ACTIONS_PER_RUN = 10</code> enforces a global blast-radius ceiling per execution cycle.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>API Desynchronization / Race Condition</strong></td>
+<td style="text-align: left;">Pods scaled manually while agent was evaluating</td>
+<td style="text-align: left;">MEDIUM</td>
+<td style="text-align: left;">Executor re-checks live cluster spec immediately prior to dispatching mutations. If a divergence is detected, the run aborts safely.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>12. Deployment &amp; Configuration</h2>
+<h3>12.1 Execution Modes</h3>
+<p>The application runs as a lightweight, containerized Python service. It can be run locally for rapid development or containerized using Docker and deployed via Helm directly into target Kubernetes clusters.</p>
+<h4>Quickstart Local Execution</h4>
+<pre><code class="language-bash"># Clone repository and enter directory
+cd agentic
+
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Launch integrated backend, API, and auto-browser launcher
+python run_server.py
+</code></pre>
+<h3>12.2 Environment Configuration (<code>.env.example</code>)</h3>
+<pre><code class="language-ini"># ==============================================================================
+# DEVOPS AUTOPILOT - CONFIGURATION MATRIX
+# ==============================================================================
+
+# System Operation Mode
+AUTOPILOT_MODE=dry_run                 # Options: 'dry_run' or 'live'
+DEBUG=True
+PORT=5000
+
+# Database Persistence
+DATABASE_URL=sqlite:///infra_waste.db
+
+# LLM Cognitive Reasoning Engine
+OPENAI_API_KEY=sk-proj-your-openai-api-key-here
+LLM_MODEL=gpt-4o-mini                 # Supported: gpt-4o, gpt-4o-mini, claude-3-5-sonnet
+
+# Kubernetes Integration
+KUBECONFIG_PATH=~/.kube/config        # Leave blank if running inside K8s cluster (InClusterConfig)
+USE_MOCK_METRICS=True                 # Set to False to bind to live cluster Metrics API
+
+# AWS Cloud Integration (Optional)
+AWS_REGION=ap-south-1
+AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+
+# Slack ChatOps &amp; Notification Engine
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00/B00/XXXXXX
+SLACK_SIGNING_SECRET=your_slack_signing_secret_here
+
+# Safety Guardrails &amp; Policy Thresholds
+ALLOWED_NAMESPACES=staging,dev,demo   # Comma-separated allowlist
+MAX_ACTIONS_PER_RUN=10                 # Blast radius ceiling
+MAX_REDUCTION_PCT=50.0                # Max replica reduction per single iteration
+CHANGE_WINDOW_START_UTC=20:30         # 02:00 AM IST in UTC
+CHANGE_WINDOW_END_UTC=22:30           # 04:00 AM IST in UTC
+
+# FinOps Pricing Model (INR Benchmarks)
+PRICE_PER_CORE_MONTH_INR=800.0
+PRICE_PER_GB_MEM_MONTH_INR=250.0
+</code></pre>
+<hr />
+<h2>13. Testing &amp; Validation</h2>
+<h3>13.1 Unit Testing Strategy</h3>
+<p>The test suite (built on <code>pytest</code>) focuses on algorithmic correctness and determinism:
+- <strong>Utilization &amp; Waste Formulations:</strong> Verifies that zero-usage pods yield $100\%$ waste scores while high-utilization workloads ($&gt;80\%$) yield scores approaching zero.
+- <strong>Financial Estimators:</strong> Verifies that pod scaling and EC2 shutdown equations calculate correct monthly totals to within two decimal places.
+- <strong>Safety Decision Trees:</strong> Asserts that production namespace inputs never produce <code>auto_approve</code>, even when risk scores are minimal.</p>
+<h3>13.2 Integration Testing Strategy</h3>
+<ul>
+<li><strong>End-to-End Simulation Pipeline:</strong> Runs the full multi-agent cycle against <code>metrics_sample.json</code>, verifying that:</li>
+<li>The Observer registers exactly 8 inefficient candidates.</li>
+<li>The Optimizer proposes scale-downs yielding ₹18,450.00/month in savings.</li>
+<li>The Safety Agent auto-approves exactly 6 actions and flags 2 for human signoff.</li>
+<li>The SQLite database updates all 3 tables with referential integrity.</li>
+<li>The Slack client generates valid Slack Block Kit payloads.</li>
+</ul>
+<hr />
+<h2>14. Performance &amp; Scalability Considerations</h2>
+<h3>14.1 Cluster Scaling &amp; Bottlenecks</h3>
+<p>In enterprise deployments containing thousands of pods and nodes, two primary bottlenecks emerge:
+1. <strong>Kubernetes API Server Saturation:</strong> Polling <code>/apis/metrics.k8s.io</code> individually for thousands of pods creates API throttling.
+   - <em>Mitigation:</em> DevOps Autopilot queries the metrics server via chunked namespace batching and uses an in-memory TTL cache (60 seconds) to reuse metrics across runs.
+2. <strong>LLM Inference Latency and Cost:</strong> Sending thousands of pods to an external LLM endpoint for reasoning induces significant latency and token costs.
+   - <em>Mitigation:</em> The system uses a <strong>Hybrid Inference Tier</strong>. Standard idle and overprovisioned workloads are handled by deterministic local Python rules (0ms latency, zero token cost). The LLM is invoked only for complex edge cases (e.g., borderline utilization or services with conflicting traffic patterns).</p>
+<hr />
+<h2>15. Security &amp; Privacy</h2>
+<ul>
+<li><strong>Principle of Least Privilege (Kubernetes RBAC):</strong> When deployed in-cluster, DevOps Autopilot utilizes a dedicated <code>ServiceAccount</code> bound to a scoped <code>ClusterRole</code>. It is granted permissions to <code>list</code> and <code>get</code> pods and metrics, and <code>update</code> or <code>patch</code> deployments exclusively within whitelisted namespaces. It cannot inspect Secrets, ConfigMaps, or execute shell commands inside pods.</li>
+<li><strong>Credential Hygiene:</strong> Cloud access keys, database connection strings, and Slack signing secrets are injected strictly via environment variables or Kubernetes Secrets. Secrets are stripped from log outputs.</li>
+<li><strong>Data Minimization:</strong> No customer payload data, application database records, or personal identifying information (PII) is accessed or transmitted. The agents interact solely with infrastructure metadata (resource names, requests, CPU/RAM utilization).</li>
+</ul>
+<hr />
+<h2>16. Demo Scenario &amp; Walkthrough</h2>
+<h3>16.1 Demonstration Topology (<code>demo/metrics_sample.json</code>)</h3>
+<p>The hackathon demo runs on a simulated enterprise cluster topology:
+- <strong>7 Overprovisioned / Idle Pods in Staging:</strong>
+  - <code>cart-service</code> (5 pods @ 2% CPU)
+  - <code>payment-mock</code> (3 pods @ 0.5% CPU)
+  - <code>search-indexer-worker</code> (4 pods @ 8% CPU)
+  - <code>analytics-aggregator</code> (4 pods @ 6% CPU)
+  - <code>recommendation-engine</code> (3 pods @ 4% CPU)
+  - <code>notification-service</code> (3 pods @ 1.2% CPU)
+  - <code>auth-helper-dev</code> (2 pods @ 0.1% CPU)
+- <strong>2 Zombie AWS EC2 Instances:</strong>
+  - <code>i-09f1a2b3c4d5e6f7a</code> (t3.xlarge, 0.8% CPU, 0 network activity)
+  - <code>i-0a8b7c6d5e4f3a2b1</code> (t3.large, 1.2% CPU, idle staging runner)
+- <strong>1 Production Pod (Controlled Edge Case):</strong>
+  - <code>core-db-replica</code> in namespace <code>prod</code> (Evaluated for policy verification)</p>
+<h3>16.2 Live Walkthrough Script (60–90 Seconds)</h3>
+<ol>
+<li><strong>00:00 - 00:15 [The Problem]:</strong> The presenter loads the 3D Cyber Cluster map. Red and amber nodes highlight massive idle allocations across staging. The cluster waste gauge reads <strong>32.8%</strong>.</li>
+<li><strong>00:15 - 00:30 [Triggering Autopilot]:</strong> The presenter clicks <strong>[ Run Optimization (Live) ]</strong> in the web UI. The agent reasoning panel activates as Observer, Optimizer, Safety, and Executor agents hand off tasks in real time.</li>
+<li><strong>00:30 - 00:50 [Multi-Agent Reasoning &amp; What-If]:</strong> The presenter inspects the findings table, highlighting how the What-If Simulator projected <code>cart-service</code> utilization increasing safely from 2% to 5% with risk categorized as <code>LOW</code>. The presenter shows how the Safety Agent auto-approved 6 non-prod actions while pausing the 7th (<code>core-db-replica</code>) because it belongs to <code>prod</code>.</li>
+<li><strong>00:50 - 01:10 [Slack ChatOps]:</strong> A Slack notification pings. The presenter opens Slack, showing the complete Block Kit summary. The presenter clicks <strong>[ APPROVE &amp; EXECUTE ]</strong> directly in Slack for the pending action, demonstrating live Human-in-the-Loop governance.</li>
+<li><strong>01:10 - 01:25 [Final Impact]:</strong> Returning to the Web Console, the 3D cluster nodes shift from red to green. The waste gauge plummets from <strong>32.8% to 14.2%</strong>, and the cumulative monthly savings counter updates to <strong>₹18,450.00 / month</strong>.</li>
+</ol>
+<hr />
+<h2>17. Results &amp; Impact (Hackathon-Specific)</h2>
+<pre><code>+------------------------------------------------------------------------------------+
+|                         SUMMARY OF HACKATHON DEMO RESULTS                          |
++------------------------------------------------------------------------------------+
+|  Total Infrastructure Candidates Evaluated:        10 Workloads / Instances        |
+|  Actionable Inefficiencies Identified:             8 Findings                      |
+|  Actions Auto-Approved by Safety Agent:            6 Actions                       |
+|  Actions Requiring Human Authorization:            2 Actions                       |
+|  Actions Rejected due to High Risk / Policy:       0 Actions                       |
+|  Cluster Capacity Reclaimed:                      18.6% Total Cores / Memory       |
+|  Net Projected Monthly Cost Savings:               ₹18,450.00 INR / month          |
+|  Net Projected Annual Cost Savings:                ₹2,21,400.00 INR / year         |
+|  Average Pipeline Execution Duration:              1.42 Seconds                    |
++------------------------------------------------------------------------------------+
+</code></pre>
+<h3>Qualitative Benefits</h3>
+<ul>
+<li><strong>Elimination of FinOps Backlog Churn:</strong> SREs no longer manually translate Cost Explorer line items into Jira tickets.</li>
+<li><strong>SRE Morale &amp; Cognitive Load:</strong> Automation eliminates tedious capacity review meetings, allowing infrastructure teams to focus on platform reliability and feature velocity.</li>
+</ul>
+<hr />
+<h2>18. Limitations</h2>
+<p>While fully functional and demonstrably effective, the prototype operates under specific boundaries due to the hackathon timeframe:
+1. <strong>Target Resource Scope:</strong> Current execution adapters are limited to Kubernetes Deployments (horizontal replica scaling) and AWS EC2 instances (stopping instances). In-place pod vertical request resizing (VPA) and storage reclamation (EBS/PVC cleanup) are not yet implemented.
+2. <strong>Simplified Pricing Engine:</strong> Cost calculations rely on regional benchmarks rather than dynamically querying the AWS Pricing API or accounting for enterprise savings plans and reserved instances.
+3. <strong>SLO Telemetry Depth:</strong> The What-If Simulator infers risk from CPU and memory headroom. It does not yet ingest distributed tracing data (e.g., OpenTelemetry p99 latency) or active Prometheus alert rules.</p>
+<hr />
+<h2>19. Future Work &amp; Roadmap</h2>
+<pre><code>+------------------------------------------------------------------------------------+
+|                             FUTURE ENGINEERING ROADMAP                             |
++------------------------------------------------------------------------------------+
+|  Phase 1 (Q3 2026): GitOps Integration (PR Generation for ArgoCD / Flux)          |
+|  Phase 2 (Q4 2026): OpenTelemetry Distributed Tracing &amp; SLO Metric Ingestion       |
+|  Phase 3 (Q1 2027): Carbon-Aware Temporal Scheduling &amp; Dynamic Cloud Shifting     |
+|  Phase 4 (Q2 2027): Multi-Cloud Support (GCP GKE / Azure AKS / Spot Orchestration)|
++------------------------------------------------------------------------------------+
+</code></pre>
+<ul>
+<li><strong>GitOps Pull Request Generator:</strong> Instead of mutating live cluster objects directly, future iterations will provide an option to fork the infrastructure repository and submit a declarative Pull Request (e.g., updating Helm values or Kustomize manifests), preserving a Git-driven single source of truth.</li>
+<li><strong>Carbon-Aware Scheduling:</strong> Integrating with electricity grid carbon intensity APIs (e.g., ElectricityMaps) to defer non-essential batch workloads to regions and timeframes powered by renewable energy.</li>
+<li><strong>Reinforcement Learning from Operator Feedback:</strong> Fine-tuning the Safety Agent's risk scoring model using historical human approval and rejection patterns within specific engineering teams.</li>
+</ul>
+<hr />
+<h2>20. Conclusion</h2>
+<p>DevOps Autopilot demonstrates how <strong>Agentic AI</strong> can transcend passive observation to safely automate complex cloud infrastructure engineering. By distributing tasks among specialized agents—Observer, Optimizer, Safety, Executor, and Reporter—the system achieves a balanced union of aggressive cost reclamation and uncompromising operational safety.</p>
+<p>With demonstrable waste reduction from <strong>32.8% to 14.2%</strong>, monthly savings of <strong>₹18,450.00</strong> on a small sample cluster, and seamless Slack ChatOps collaboration, DevOps Autopilot delivers an enterprise-ready, practical foundation for autonomous, self-optimizing cloud infrastructure.</p>
+<hr />
+<h2>21. Appendices</h2>
+<h3>Appendix A: Example API Payloads</h3>
+<h4><code>POST /api/optimize</code> (Request &amp; Response)</h4>
+<pre><code class="language-http">POST /api/optimize HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+  &quot;mode&quot;: &quot;live&quot;,
+  &quot;target_namespaces&quot;: [&quot;staging&quot;],
+  &quot;notify_slack&quot;: true
+}
+</code></pre>
+<pre><code class="language-http">HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;run_id&quot;: 1,
+  &quot;mode&quot;: &quot;live&quot;,
+  &quot;summary&quot;: {
+    &quot;findings_count&quot;: 8,
+    &quot;actions_count&quot;: 8,
+    &quot;actions_approved&quot;: 6,
+    &quot;actions_rejected&quot;: 2,
+    &quot;savings_inr_month&quot;: 18450.0,
+    &quot;before_waste_pct&quot;: 32.8,
+    &quot;after_waste_pct&quot;: 14.2
+  },
+  &quot;triggered_at&quot;: &quot;2026-09-19T13:30:00Z&quot;
+}
+</code></pre>
+<hr />
+<h3>Appendix B: Sample Slack Block Kit Messages</h3>
+<pre><code class="language-json">{
+  &quot;blocks&quot;: [
+    {
+      &quot;type&quot;: &quot;header&quot;,
+      &quot;text&quot;: {
+        &quot;type&quot;: &quot;plain_text&quot;,
+        &quot;text&quot;: &quot;DevOps Autopilot - Infra Waste Resolution Complete [LIVE MODE]&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;section&quot;,
+      &quot;fields&quot;: [
+        {&quot;type&quot;: &quot;mrkdwn&quot;, &quot;text&quot;: &quot;*Monthly Savings:*\n`₹18,450.00 / month`&quot;},
+        {&quot;type&quot;: &quot;mrkdwn&quot;, &quot;text&quot;: &quot;*Cluster Waste:*\n`32.8%` -&gt; `14.2%`&quot;}
+      ]
+    },
+    {
+      &quot;type&quot;: &quot;section&quot;,
+      &quot;text&quot;: {
+        &quot;type&quot;: &quot;mrkdwn&quot;,
+        &quot;text&quot;: &quot;*Pending Approval Required:*\n`core-db-replica` in `prod`\n*Action:* Scale 4 -&gt; 2 pods | *Risk:* MEDIUM (Production Namespace Lock)&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;actions&quot;,
+      &quot;elements&quot;: [
+        {
+          &quot;type&quot;: &quot;button&quot;,
+          &quot;text&quot;: {&quot;type&quot;: &quot;plain_text&quot;, &quot;text&quot;: &quot;Approve &amp; Execute&quot;},
+          &quot;style&quot;: &quot;primary&quot;,
+          &quot;value&quot;: &quot;approve_finding_8&quot;
+        },
+        {
+          &quot;type&quot;: &quot;button&quot;,
+          &quot;text&quot;: {&quot;type&quot;: &quot;plain_text&quot;, &quot;text&quot;: &quot;Reject&quot;},
+          &quot;style&quot;: &quot;danger&quot;,
+          &quot;value&quot;: &quot;reject_finding_8&quot;
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<hr />
+<h3>Appendix C: Sample Agent Reasoning Logs</h3>
+<pre><code>[2026-09-19 13:30:01] [ObserverAgent] Ingesting telemetry across 10 workloads. Telemetry quality: 100%.
+[2026-09-19 13:30:01] [ObserverAgent] Identified candidate 'cart-service' (staging) with Waste Score 88.0/100 (CPU Util: 2.0%, Mem Util: 15.0%).
+[2026-09-19 13:30:02] [OptimizerAgent] Analyzing 'cart-service'. Current Replicas: 5. 
+[2026-09-19 13:30:02] [OptimizerAgent] Proposed Action: scale_down to 2 replicas (Delta: -3 pods). Estimated Monthly Savings: ₹7,800.00.
+[2026-09-19 13:30:02] [OptimizerAgent] Running What-If Simulator: Current Util 2.0% -&gt; Predicted Util 5.0%.
+[2026-09-19 13:30:02] [OptimizerAgent] Risk Assessment: Predicted util 5.0% &lt; 65% SLO ceiling. Assigned Risk: LOW.
+[2026-09-19 13:30:02] [SafetyAgent] Evaluating policies for 'cart-service'.
+[2026-09-19 13:30:02] [SafetyAgent] Check 1: Namespace 'staging' is in ALLOWED_NAMESPACES -&gt; PASS.
+[2026-09-19 13:30:02] [SafetyAgent] Check 2: Target replicas (2) &gt;= MIN_REPLICAS (2) -&gt; PASS.
+[2026-09-19 13:30:02] [SafetyAgent] Decision: auto_approve.
+[2026-09-19 13:30:03] [ExecutorAgent] Applying patch to deployment/cart-service (spec.replicas = 2).
+[2026-09-19 13:30:03] [ExecutorAgent] Kubernetes AppsV1Api responded HTTP 200 OK. Mutation verified.
+[2026-09-19 13:30:04] [ReporterAgent] Persisted Run #1 to SQLite. Dispatched BlockKit summary to Slack #finops-alerts.
+</code></pre>
+<hr />
+<h3>Appendix D: Glossary</h3>
+<ul>
+<li><strong>Waste Score ($W_R$):</strong> A normalized scalar metric ($0.0 \text{ to } 100.0$) quantifying resource underutilization across CPU, memory, and network throughput.</li>
+<li><strong>What-If Simulator:</strong> An analytical projection engine that forecasts steady-state workload utilization following a theoretical scaling action to detect SLO breach risks before physical mutation.</li>
+<li><strong>Dry-Run Mode:</strong> An execution mode where all agent analyses, what-if simulations, and policy evaluations are executed without issuing mutating requests to Kubernetes or cloud providers.</li>
+<li><strong>Live Mode:</strong> An operational state where authorized remediation directives are executed against production/staging APIs.</li>
+<li><strong>Change Window:</strong> A predefined time window during which infrastructure modifications are permitted without triggering human sign-off escalation.</li>
+<li><strong>Human-in-the-Loop (HITL):</strong> A governance model where sensitive or high-risk autonomous decisions require explicit confirmation from a verified human engineer before execution.</li>
+</ul>
+</body>
+</html>
